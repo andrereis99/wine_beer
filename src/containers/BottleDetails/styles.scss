@@ -1,92 +1,70 @@
 @import '../../styles/variables';
 
-.BottleListSection {
-    margin-bottom: 15px;
+.Bottle_Details {
+    display: flex;
+    justify-content: space-between;
+
+    .Bottle_Header {
+        display: flex;
+        font-size: $xl;
+        
+        .Bottle_Brand {
+            font-weight: bold;
+        }
     
-    .SectionTitle {
-        font-size: 25px;
-        font-weight: bold;
-        color: $primaryColor;
+        .Bottle_Title {
+            color: $secondaryColor;
+            font-size: small;
+        }
     
-        @media screen and (max-width: 768px) {
-            font-size: 20px;
+        .Bottle_Price {
+            margin-left: 20px;
+            color: $lightPrimary;
+            font-size: $priceSize;
+            font-weight: bold;
+            font-style: italic;
+            
+            &.promo {
+                color: $promoColor;
+            }
+    
+            span {
+                margin-left: 5px;
+                font-weight: normal;
+                text-decoration: line-through;
+                color: $secondaryColor;
+                font-size: $ml;
+            }
+        }
+    }
+    
+    .Bottle_Description {
+    
+    }
+    
+    .Bottle_Image_Container {
+        max-width: 50%;
+
+        img {
+            max-height: 400px;
+            max-width: 100%;
+            object-fit: contain;
         }
     }
 
-    .BottleListSection_Item {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        padding: 10px 20px;
-        min-height: 100px;
-        background-color: white;
-        height: 125px;
-        box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.1);
-        border-radius: 20px;
-        cursor: pointer;
+    @media screen and (max-width: 768px) {
+        flex-direction: column-reverse;
 
-        &:hover {
-            transform: scale(1.05);
-            box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .BottleListSection_Item_Header {
-            display: flex;
-            flex-direction: column;
+        .Bottle_Header {
             justify-content: space-between;
-
-            a {
-                font-size: small;
-                color: $primaryColor;
-            }
-            
-            .BottleListSection_Item_Brand {
-                font-weight: bold;
-            }
-
-            .BottleListSection_Item_Title {
-                color: $secondaryColor;
-                font-size: small;
-            }
-
-            .BottleListSection_Item_Price {
-                color: $lightPrimary;
-                font-size: $xxl;
-                font-weight: bold;
-                font-style: italic;
-                
-                &.promo {
-                    color: $promoColor;
-                }
-
-                span {
-                    margin-left: 5px;
-                    font-weight: normal;
-                    text-decoration: line-through;
-                    color: $secondaryColor;
-                    font-size: $ml;
-                }
-            }
         }
 
-        .BottleListSection_Image_Container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100px;
+        .Bottle_Image_Container {
+            max-width: 100%;
 
             img {
-                max-height: 100%;
-                object-fit: contain;
-            }
-        }
-
-        @media screen and (max-width: 768px) {
-            margin: 0 0 10px 0;
-            padding: 8px 15px;
-
-            .BottleListSection_Item_Header {
-                width: 60%;
+                max-height: none;
+                margin-bottom: 10px;
             }
         }
     }

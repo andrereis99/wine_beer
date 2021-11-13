@@ -8,7 +8,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import { translate } from "../../utils/utils";
+import { translate, formatPrice } from '../../utils/utils';
 import { setTitle } from "../../store/actions";
 import Strings from '../../utils/strings';
 
@@ -43,7 +43,30 @@ export class Home extends React.Component<any, any> {
 					<meta name="description" content="Description of Portfolio" />
 				</Helmet>
 				<div className="ContentContainer">
-					{translate(bottle.name)}
+					<div className="Bottle_Details">
+						<div>
+							<div className="Bottle_Header">
+								<div>
+									<div className="Bottle_Brand">
+										{bottle.brand}
+									</div>
+									<div className="Bottle_Title">
+										{translate(bottle.name)}
+									</div>
+								</div>
+								<div className={`Bottle_Price ${bottle.promoPrice ? 'promo': ''}`}>
+									{bottle.promoPrice ? formatPrice(bottle.promoPrice) : formatPrice(bottle.price)}
+									{bottle.promoPrice ? <span>{formatPrice(bottle.price)}</span> : null}
+								</div>
+							</div>
+							<div className="Bottle_Description">
+								{translate(bottle.description)}
+							</div>
+						</div>
+						<div className="Bottle_Image_Container">
+							<img alt={translate(bottle.name)} src={bottle.image} />
+						</div>
+					</div>
 				</div>
 			</React.Fragment>
 		);
