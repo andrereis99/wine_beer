@@ -1,25 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './containers/App';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import { ConnectedRouter } from 'connected-react-router';
+import history from './utils/history';
+import { store, persistor } from './store';
+import * as serviceWorker from './serviceWorker';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+ReactDOM.render(
+	<Provider store={store}>
+		<PersistGate loading={null} persistor={persistor}>
+			<ConnectedRouter history={history}>
+				<App />
+			</ConnectedRouter>
+		</PersistGate>
+	</Provider>,
+	document.getElementById('app')
+);
 
-export default App;
+serviceWorker.unregister();

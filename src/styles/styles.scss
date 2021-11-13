@@ -1,0 +1,42 @@
+@import "variables";
+
+// @import '~antd/lib/style/themes/default.less';
+// @import '~antd/dist/antd.less'; // Import Ant Design styles by less entry
+
+html * {
+  font-family: Nunito;
+  outline: none !important;
+  -webkit-font-smoothing: antialiased;
+  font-size: large;
+
+  @media screen and (max-width: 768px) {
+    font-size: unset;
+  }
+}
+
+body {
+  margin: 0;
+  color: $textColor;
+}
+
+.App {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  background-color: $appBackgroundColor;
+  overflow: hidden;
+}
+
+input {
+  font-size: $ml !important;
+}
+
+.ContentContainer {
+  min-height: calc(100vh - 112px);
+  padding: 25px;
+  background-color: #f9f9f9;
+
+  @media screen and (max-width: 920px) {
+    padding: 25px 20px;
+  }
+}
