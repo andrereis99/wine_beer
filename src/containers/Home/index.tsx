@@ -8,7 +8,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { push } from "connected-react-router";
-import { Row, Col } from "antd";
+import { Row, Col, Button } from "antd";
 import { setTitle } from "../../store/actions";
 import { translate, formatPrice } from '../../utils/utils';
 import Strings from '../../utils/strings';
@@ -30,6 +30,7 @@ export class Home extends React.Component<any, any> {
 
 		if (!bottles) return;
 
+		// Separate the bottles by type (wine/beer)
 		this.setState({
 			listOfWineBottles: bottles.filter((elem: any) => elem.type === 'wine'),
 			listOfBeerBottles: bottles.filter((elem: any) => elem.type === 'beer')
@@ -44,12 +45,16 @@ export class Home extends React.Component<any, any> {
 			<React.Fragment>
 				<Helmet>
 					<title>{Strings.listOfBottles.header}</title>
-					<meta name="description" content="Description of Portfolio" />
+					<meta name="List" content="Bottles List" />
 				</Helmet>
 				<div className="ContentContainer">
+					{/* Wine Bottles Section */}
 					<div className="BottleListSection">
 						<div className="SectionTitle">
 							{Strings.listOfBottles.listOfWineBottles}
+							<Button onClick={() => dispatch(push('bottle_form', { bottleType: 'wine' }))} type="primary">
+								{Strings.bottleDetails.addWine}
+							</Button>
 						</div>
 						<Row gutter={12}>
 							{listOfWineBottles?.map((bottle: any) => {
@@ -61,25 +66,30 @@ export class Home extends React.Component<any, any> {
 													{bottle.brand}
 												</div>
 												<div className="BottleListSection_Item_Title">
-													{translate(bottle.name)}
+													{bottle.name}
 												</div>
 											</div>
+											{/* Verify if has Promo Price */}
 											<div className={`BottleListSection_Item_Price ${bottle.promoPrice ? 'promo': ''}`}>
 												{bottle.promoPrice ? formatPrice(bottle.promoPrice) : formatPrice(bottle.price)}
 												{bottle.promoPrice ? <span>{formatPrice(bottle.price)}</span> : null}
 											</div>
 										</div>
-										<div className="BottleListSection_Image_Container">
-											<img alt={translate(bottle.name)} src={bottle.image} />
-										</div>
+										{bottle.image ? <div className="BottleListSection_Image_Container">
+											<img alt={bottle.name} src={bottle.image} />
+										</div> : null}
 									</div>
 								</Col>
 							})}
 						</Row>
 					</div>
+					{/* Beer Bottles Section */}
 					<div className="BottleListSection">
 						<div className="SectionTitle">
 							{Strings.listOfBottles.listOfBeerBottles}
+							<Button onClick={() => dispatch(push('bottle_form', { bottleType: 'beer' }))} type="primary">
+								{Strings.bottleDetails.addBeer}
+							</Button>
 						</div>
 						<Row gutter={12}>
 							{listOfBeerBottles?.map((bottle: any) => {
@@ -91,17 +101,18 @@ export class Home extends React.Component<any, any> {
 													{bottle.brand}
 												</div>
 												<div className="BottleListSection_Item_Title">
-													{translate(bottle.name)}
+													{bottle.name}
 												</div>
 											</div>
+											{/* Verify if has Promo Price */}
 											<div className={`BottleListSection_Item_Price ${bottle.promoPrice ? 'promo': ''}`}>
 												{bottle.promoPrice ? formatPrice(bottle.promoPrice) : formatPrice(bottle.price)}
 												{bottle.promoPrice ? <span>{formatPrice(bottle.price)}</span> : null}
 											</div>
 										</div>
-										<div className="BottleListSection_Image_Container">
-											<img alt={translate(bottle.name)} src={bottle.image} />
-										</div>
+										{bottle.image ? <div className="BottleListSection_Image_Container">
+											<img alt={bottle.name} src={bottle.image} />
+										</div> : null}
 									</div>
 								</Col>
 							})}

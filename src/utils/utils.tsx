@@ -1,3 +1,4 @@
+import { toast as Toast } from "react-toastify";
 import Strings from './strings';
 
 export const translate = (text: any) => {
@@ -30,3 +31,29 @@ export const LANGUAGES = [
 		label: 'EN',
 	},
 ];
+
+// Toast
+const TOAST_CLOSETIME = 5000;
+
+class Popup {
+  success(message: String) {
+    if (Toast.isActive(`success_${message}`)) {
+      Toast.update(`success_${message}`, { autoClose: TOAST_CLOSETIME });
+    } else {
+      Toast.success(message, { toastId: `success_${message}` });
+    }
+  }
+
+  error(message: String) {
+    if (Toast.isActive(`error_${message}`)) {
+      Toast.update(`error_${message}`, { autoClose: TOAST_CLOSETIME });
+    } else {
+      Toast.error(message, { toastId: `error_${message}` });
+    }
+  }
+}
+
+export const popup = new Popup();
+
+export const toast = new Popup();
+// End of toast

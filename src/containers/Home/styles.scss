@@ -4,9 +4,12 @@
     margin-bottom: 15px;
     
     .SectionTitle {
+        display: flex;
+        justify-content: space-between;
         font-size: 25px;
         font-weight: bold;
         color: $primaryColor;
+        margin-bottom: 10px;
     
         @media screen and (max-width: 768px) {
             font-size: 20px;
@@ -72,6 +75,7 @@
 
             img {
                 max-height: 100%;
+                max-width: 100%;
                 object-fit: contain;
             }
         }

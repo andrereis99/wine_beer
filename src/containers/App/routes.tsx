@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Route, Redirect, Switch } from "react-router-dom";
 import { setLanguage, setBottles } from "../../store/actions";
-import { Home, BottleDetails } from "../index";
+import { Home, BottleDetails, BottleForm } from "../index";
 
 export class RoutesContainer extends React.Component<any, any> {
 	
@@ -10,9 +10,10 @@ export class RoutesContainer extends React.Component<any, any> {
 		const { dispatch } = this.props;
 
 		dispatch(setLanguage('pt'));
+		// Here I populate default bottles for example, in the production case wouldn't be here
 		dispatch(setBottles([{
 				id: 1,
-				name: { pt: 'Vinho 1', en: 'Wine 1' },
+				name: 'Wine 1',
 				type: 'wine',
 				brand: 'Brand 1',
 				description: { pt: 'Descrição do Vinho 1', en: 'Wine 1 Description' },
@@ -20,7 +21,7 @@ export class RoutesContainer extends React.Component<any, any> {
 				price: 16,
 			}, {
 				id: 2,
-				name: { pt: 'Vinho 2', en: 'Wine 2' },
+				name: 'Wine 2',
 				type: 'wine',
 				brand: 'Brand 2',
 				description: { pt: 'Descrição do Vinho 2', en: 'Wine 2 Description' },
@@ -29,7 +30,7 @@ export class RoutesContainer extends React.Component<any, any> {
 				promoPrice: 17.99,
 			}, {
 				id: 3,
-				name: { pt: 'Cerveja 1', en: 'Beer 1' },
+				name: 'Beer 1',
 				type: 'beer',
 				brand: 'Brand 1',
 				description: { pt: 'Descrição da Cerveja 1', en: 'Beer 1 Description' },
@@ -37,7 +38,7 @@ export class RoutesContainer extends React.Component<any, any> {
 				price: 1.20,
 			}, {
 				id: 4,
-				name: { pt: 'Cerveja 2', en: 'Beer 2' },
+				name: 'Beer 2',
 				type: 'beer',
 				brand: 'Brand 2',
 				description: { pt: 'Descrição da Cerveja 2', en: 'Beer 2 Description' },
@@ -47,35 +48,28 @@ export class RoutesContainer extends React.Component<any, any> {
 		]));
 	}
 
-  shouldComponentUpdate(nextProps: any) {
-    const { user, token } = this.props;
-    const isLoggedIn = Boolean(user && token);
-    const willBeLoggedIn = Boolean(nextProps.user && nextProps.token);
+	componentDidUpdate() {
+		const elem = document.getElementById("app_content");
 
-    return isLoggedIn !== willBeLoggedIn;
-  }
+		if (elem) {
+			elem.scrollTop = 0;
+		}
+	}
 
-  componentDidUpdate() {
-    const elem = document.getElementById("app_content");
-
-    if (elem) {
-      elem.scrollTop = 0;
-    }
-  }
-
-  render() {
-    return (
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/bottle/:id" component={BottleDetails} />
-        <Redirect to="/" />
-      </Switch>
-    );
-  }
+	render() {
+		return (
+			<Switch>
+				<Route exact path="/" component={Home} />
+				<Route exact path="/bottle/:id" component={BottleDetails} />
+				<Route exact path="/bottle_form/:id?" component={BottleForm} />
+				<Redirect to="/" />
+			</Switch>
+		);
+	}
 }
 
 const mapStateToProps = (state: any) => ({
-  router: state.router,
+  	router: state.router,
 });
 
 export default connect(mapStateToProps)(RoutesContainer);

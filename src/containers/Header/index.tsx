@@ -48,6 +48,10 @@ export class Header extends React.Component<any, any> {
 		);
 	}
 
+	/**
+	 * Change System language
+	 * @param language
+	 */
     changeLanguage(language: string) {
 		const {dispatch} = this.props;
 		Strings.setLanguage(language);
@@ -88,6 +92,7 @@ export class Header extends React.Component<any, any> {
 			<div className="HeaderContainer">
 				<div id="AppHeader" className="Header">
 					{this.renderLogo()}
+					{/* Language Switcher */}
 					<Dropdown overlay={languageMenu} trigger={["click"]}>
                         <div className="LanguageContainer">
                             <h1>{this.state.language.toUpperCase()}</h1>
